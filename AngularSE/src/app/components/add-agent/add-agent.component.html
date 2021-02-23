@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="assets/faviconwhite.png">
+
+  <title>Add Agent</title>
+
+</head>
+
+
+
+<body>
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+  <img style="height: 50px; margin-left: 30px" src="assets/logowhite.png" alt="myalert">
+</nav>
+
+<!-- Sidebar navigation -->
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item active">
+            <a class="nav-link" (click)="router.navigate(['dashboard_manager'])">
+              <i class="fas fa-user"></i>User Profile
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="router.navigate(['agents_list'])">
+              <i class="fas fa-address-book" ></i>
+              Agents Management
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="router.navigate(['types_list'])">
+              <i class="fas fa-bell"></i>
+              Alarms Management
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="router.navigate(['warnings_list'])">
+              <i class="fas fa-exclamation-circle"></i>Alerts By Citizens
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="router.navigate(['delete_int'])">
+              <i class="fas fa-calendar-check"></i>Alerts Closed
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="firebaseService.logout()">
+              <i class="fas fa-sign-out-alt"></i>Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  </div>
+
+
+  <div class="col-md">
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 style="margin-left: 300px"><strong>Compile the form</strong></h1>
+      </div>
+      <!-- Show user data when logged in -->
+
+              <form #agentform = "ngForm">
+                <div class="row">
+                  <div class="col-md-4">
+                    <label for="inputName4"><strong>Name</strong></label>
+                    <input type="text" class="form-control" id="inputName4" placeholder="Name" name="name"
+                           [ngClass]="{'is-invalid' : name.errors && name.touched}"
+                           #name = "ngModel"
+                           [(ngModel)]="user.name"
+                           required
+                           minlength="2">
+                    <div class="invalid-feedback">
+                      Please insert the name
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="inputSurname4"><strong>Surname</strong></label>
+                    <input type="text" class="form-control" id="inputSurname4" placeholder="Surname" name="surname"
+                           [ngClass]="{'is-invalid': surname.errors && surname.touched}"
+                           #surname = "ngModel"
+                    [(ngModel)]="user.surname"
+                           required
+                           minlength="2"
+                    >
+                    <div class="invalid-feedback">
+                      Please insert the surname
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <label for="inputBirthdate"><strong>Birthdate</strong></label>
+                    <input type="date" class="form-control" id="inputBirthdate" name="birthdate"
+                           #birthdate="ngModel"
+                           [(ngModel)]="user.birthDate"
+                           [ngClass]="{'is-invalid': birthdate.errors && birthdate.touched}"
+                           required>
+                    <div class="invalid-feedback">
+                      Please insert the birthdate
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <label for="inputState"><strong>Sex</strong></label>
+                    <select id="inputState" class="form-control"
+                            [ngClass]="{'is-invalid' : sex.errors && sex.touched}"
+                            name="sex" #sex = "ngModel"
+                            [(ngModel)]="user.sex"
+                            required>
+                      <option selected>Choose...</option>
+                      <option value="M">Male</option>
+                      <option value="F">Female</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Please insert the sex
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                      <label>Email</label>
+                      <input type="email" class="form-control"
+                             [(ngModel)]="user.email"
+                             #email = "ngModel"
+                             [ngClass] = "{'is-invalid': email.errors && email.touched}"
+                             name = "email"
+                             pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+                     required
+                      >
+                      <div class="invalid-feedback">
+                        Please insert a valid email
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="inputPassword4"><strong>Password</strong></label>
+                    <input type="password" class="form-control"
+                           id="inputPassword4" placeholder="Password"
+                           [(ngModel)]="user.password"
+                           #password="ngModel"
+                           [ngClass]="{'is-invalid': password.errors && password.touched}"
+                           name = "password"
+                           required
+                           minlength="6">
+                    <div class="invalid-feedback">
+                      The password must be of min 6 characters
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="inputAddress"><strong>Address</strong></label>
+                    <input type="text" class="form-control" id="inputAddress" name="address" placeholder="Address"
+                           #address = "ngModel"
+                           [ngClass]="{'is-invalid': address.errors && address.touched}"
+                           [(ngModel)]="user.address"
+                           required
+                           minlength="3">
+                    <div class="invalid-feedback">
+                      Please insert a valid address
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="inputCity4"><strong>City</strong></label>
+                    <input type="text" class="form-control" id="inputCity4" name="city" placeholder="City"
+                           #city="ngModel" [(ngModel)]="user.city"
+                    [ngClass]="{'is-invalid': city.errors && city.touched}"
+                    required
+                    minlength="2"
+                    >
+                    <div class="invalid-feedback">
+                      Please insert a valid city
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <label for="inputCountry4"><strong>State</strong></label>
+                    <input type="text" class="form-control" id="inputCountry4" placeholder="State" name="state"
+                           [ngClass]="{'is-invalid': state.errors && state.touched}"
+                           [(ngModel)]="user.state"
+                           #state = "ngModel"
+                           required
+                           minlength="2">
+                    <div class="invalid-feedback">
+                      Please insert the state
+                    </div>
+                  </div>
+                </div>
+                  <div class="formGroup" style="text-align: center">
+                    <button class="btn btn-dark" style="margin-top: 8px" [disabled]="!agentform.form.valid" (click)="onSignUp(idmanager,name.value,surname.value,birthdate.value,sex.value,address.value,city.value,state.value,email.value,password.value)"><i class="fas fa-plus-circle"></i>ADD SECURITY AGENT</button>
+                  </div>
+              </form>
+  </main>
+  </div>
+  </div>
+</body>
+</html>

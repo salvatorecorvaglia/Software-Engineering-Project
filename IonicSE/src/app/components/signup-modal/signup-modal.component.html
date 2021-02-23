@@ -1,0 +1,103 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>SignUp</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+<ion-content class="ion-padding">
+
+  <form [formGroup]="ionicForm" novalidate>
+  <ion-item>
+    <ion-label position="floating">Name</ion-label>
+    <ion-input type="text" #name formControlName="name" required></ion-input>
+  </ion-item>
+    <span class="error ion-padding" style="color: red" *ngIf="isSubmitted && errorControl.name.errors?.required">
+      Name is required.
+    </span>
+    <span class="error ion-padding" style="color: red" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
+      Name should be min 2 chars long.
+    </span>
+  <ion-item>
+    <ion-label position="floating">Surname</ion-label>
+    <ion-input type="text" #surname formControlName="surname" required></ion-input>
+  </ion-item>
+    <span class="error ion-padding" style="color: red" *ngIf="isSubmitted && errorControl.surname.errors?.required">
+      Surname is required.
+    </span>
+    <span class="error ion-padding" style="color: red" *ngIf="isSubmitted && errorControl.surname.errors?.minlength">
+      Name should be min 2 chars long.
+    </span>
+  <ion-item>
+    <ion-label position="floating">Sex</ion-label>
+    <ion-select  #sex formControlName="sex" required>
+    <ion-select-option value="F">Female</ion-select-option>
+    <ion-select-option value="M">Male</ion-select-option>
+    </ion-select>
+  </ion-item>
+    <span class="error ion-padding" style="color: red" *ngIf="isSubmitted && errorControl.sex.errors?.required">
+      Sex is required.
+    </span>
+  <ion-item>
+    <ion-label position="floating">Birthdate</ion-label>
+    <ion-datetime #birthdate formControlName="birthdate" required></ion-datetime>
+  </ion-item>
+    <span class="error ion-padding" style="color: red" *ngIf="isSubmitted && errorControl.birthdate.errors?.required">
+      Birthdate is required.
+    </span>
+  <ion-item>
+    <ion-label position="floating">Address</ion-label>
+    <ion-input type="text" #address formControlName="address" required></ion-input>
+  </ion-item>
+    <span class="error ion-padding" style="color: red" *ngIf="isSubmitted && errorControl.address.errors?.required">
+      Address is required.
+    </span>
+    <span class="error ion-padding" style="color: red" *ngIf="isSubmitted && errorControl.address.errors?.minlength">
+      Address should be min 5 chars long.
+    </span>
+  <ion-item>
+    <ion-label position="floating">City</ion-label>
+    <ion-input type="text" #city formControlName="city" required></ion-input>
+  </ion-item>
+    <span class="error ion-padding" style="color: red" *ngIf="isSubmitted && errorControl.city.errors?.required">
+      City is required.
+    </span>
+    <span class="error ion-padding" style="color: red" *ngIf="isSubmitted && errorControl.city.errors?.minlength">
+      City should be min 2 chars long.
+    </span>
+  <ion-item>
+    <ion-label position="floating">State</ion-label>
+    <ion-input type="text" #state formControlName="state" required></ion-input>
+  </ion-item>
+      <span class="error ion-padding" style="color: red" *ngIf="isSubmitted && errorControl.state.errors?.required">
+      State is required.
+    </span>
+      <span class="error ion-padding" style="color: red" *ngIf="isSubmitted && errorControl.state.errors?.minlength">
+      State should be min 2 chars long.
+    </span>
+  <ion-item>
+    <ion-label position="floating">Email</ion-label>
+    <ion-input type="text" #email formControlName="email" required></ion-input>
+  </ion-item>
+    <span class="error ion-padding" style="color: red" *ngIf="isSubmitted && errorControl.email.errors?.required">
+      Email is required.
+    </span>
+    <span class="error ion-padding"  style="color: red" *ngIf="isSubmitted && errorControl.email.errors?.pattern">
+      Please provide valid email.
+    </span>
+  <ion-item>
+    <ion-label position="floating">Password</ion-label>
+    <ion-input type="password" #password formControlName="password" required></ion-input>
+  </ion-item>
+      <span class="error ion-padding" style="color: red" *ngIf="isSubmitted && errorControl.password.errors?.required">
+      Password is required.
+    </span>
+      <span class="error ion-padding" style="color: red" *ngIf="isSubmitted && errorControl.password.errors?.minlength">
+      Password should be min 6 chars long.
+    </span>
+  <br>
+  <ion-button color="danger" expand="block" (click)="onSignUp(name.value, surname.value, email.value,password.value,sex.value,birthdate.value, address.value, city.value, state.value) && dismissModal()">SignUp</ion-button>
+  </form>
+</ion-content>

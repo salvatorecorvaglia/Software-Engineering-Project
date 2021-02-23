@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Advise Model</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="router.navigateByUrl('/homecitizen')">Back</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+<ion-content>
+  <form [formGroup]="ionicForm" novalidate>
+  <ion-grid>
+    <ion-row>
+      <ion-col style="text-align: center">
+  <ion-button color="success" (click)="sendAlarm(type.value, addressplus.value, title.value, description.value, lat.value, lon.value)" fill="outline"><ion-icon slot="start" name="send-outline"></ion-icon>Send Alarm</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-item lines="none">
+    <ion-label>
+      <p><strong>Name:</strong></p>
+    <p>{{namecitizen}} {{surnamecitizen}}</p>
+    </ion-label>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-label class="ion-text-wrap">
+      <p><strong>Date:</strong></p>
+    <p>{{date | date: 'medium'}}</p>
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <p><strong>Type:</strong></p>
+    </ion-label>
+  <ion-select placeholder="Select type.." #type formControlName="type" required >
+    <ion-select-option value="{{item.idType}}" *ngFor="let item of types">{{item.name}}</ion-select-option>
+  </ion-select>
+  </ion-item>
+    <span class="error ion-padding" style="color: red" *ngIf="isSubmitted && errorControl.type.errors?.required">
+      Type is required.
+    </span>
+  <ion-item>
+    <ion-label class="ion-text-wrap">
+      <p><strong>Address:</strong>(Tap the Map)</p>
+      <ion-input id="address" type="text" value="{{address}}" formControlName="address" required disabled="true"></ion-input>
+    </ion-label>
+  </ion-item>
+    <span class="error ion-padding" style="color: red" *ngIf="isSubmitted && errorControl.address.errors?.required">
+      Tap on the map!
+    </span>
+  <ion-item lines="none">
+    <ion-label>
+      <p><strong>Civic Number:</strong>(optional)</p>
+    </ion-label>
+    <ion-input type="text" placeholder="Digit here.." #addressplus></ion-input>
+  </ion-item>
+  <ion-item>
+    <div id="map" class="map" (click)="getCoord($event)"></div>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <p><strong>Title:</strong></p>
+    </ion-label>
+    <ion-input type="text" placeholder="Title.." #title formControlName="title" required></ion-input>
+  </ion-item>
+    <span class="error ion-padding" style="color: red" *ngIf="isSubmitted && errorControl.title.errors?.required">
+      Title is required.
+    </span>
+    <span class="error ion-padding" style="color: red" *ngIf="isSubmitted && errorControl.title.errors?.minlength">
+     Title should be min 3 chars long.
+    </span>
+  <ion-item lines="none">
+    <ion-label>
+      <p><strong>Description:</strong></p></ion-label>
+    <ion-textarea type="long text" placeholder="Description.." rows="6" cols="20" #description formControlName="description" required></ion-textarea>
+  </ion-item>
+    <span class="error ion-padding" style="color: red" *ngIf="isSubmitted && errorControl.description.errors?.required">
+      Description is required.
+    </span>
+    <span class="error ion-padding" style="color: red" *ngIf="isSubmitted && errorControl.description.errors?.minlength">
+     Description should be min 8 chars long.
+    </span>
+  <ion-input type="text" id="lat" #lat hidden></ion-input>
+  <ion-input type="text" id="lon" #lon hidden></ion-input>
+  </form>
+</ion-content>

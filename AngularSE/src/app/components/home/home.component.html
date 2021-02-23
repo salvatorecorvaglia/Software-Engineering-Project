@@ -1,0 +1,42 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Welcome to MyAlert</title>
+
+</head>
+
+<body class="text-center" background="assets/images/background.jpg" style="background-size: cover" >
+
+<div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+  <header class="masthead mb-auto">
+    <div class="inner">
+      <img src="assets/logowhite.png" style="width: 150px">
+      <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link active" href="#">Home</a>
+        <a class="nav-link" (click)="router.navigate(['contacts'])">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main role="main" class="inner cover">
+    <h1 class="cover-heading">Welcome to MyAlert</h1>
+    <p class="lead">Welcome to MyAlert, an application that allows citizens to report alarms or dangers occurring in the city land.</p>
+    <p class="lead">
+      <button class="btn btn-lg btn-secondary" (click)="router.navigate(['login_form'])">Login <i class="fas fa-sign-in-alt"></i></button>
+      <button class="btn btn-lg btn-secondary" style="margin-left: 10px">Download The App <i class="fab fa-android"></i> <i class="fab fa-apple"></i></button>
+    </p>
+  </main>
+
+  <footer class="mastfoot mt-auto">
+    <div class="inner">
+      <p>Project by Vincenzo Spagnolo & Salvatore Corvaglia</p>
+    </div>
+  </footer>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+</body>
+</html>

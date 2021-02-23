@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <img src="assets/icon/favicon.png" width="50" align-self-center="true">
+    </ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="auth-form">
+  <img src="assets/photologin.png">
+  <ion-grid align="center" style="margin-top: 50px">
+    <ion-row>
+
+      <ion-col>
+        <ion-button (click)="openSignupModal()" expand="block" color="primary" style="margin-bottom: 7px">Sign Up</ion-button>
+
+
+        <span class="already" style="margin-bottom: 40px">Already a user?</span>
+
+        <ion-button (click)="openLoginModal()" expand="block" color="danger">Sign In</ion-button>
+        <img src="assets/logo.png" width="150" style="margin-top: 10px">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

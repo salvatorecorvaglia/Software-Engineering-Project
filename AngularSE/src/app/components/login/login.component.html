@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="assets/logo.png">
+
+  <title>Signin</title>
+
+
+</head>
+
+<body class="text-center" style="background: #efefef">
+<div class="card" style="background: #efefef">
+  <div class="body" style="background: #efefef">
+<form class="form-signin">
+  <img class="mb-4" src="assets/logo.png" alt="" style="width: 280px">
+  <h1 class="h3 mb-3 font-weight-normal">Go to Dashboard</h1>
+  <input type="email" id="inputEmail" class="form-control" placeholder="Email address" #email required autofocus>
+  <input type="password" id="inputPassword" class="form-control" placeholder="Password" #password required>
+</form>
+  </div>
+  <div class="card-footer" style="background: #efefef;">
+<button class="btn btn-lg btn-primary btn-block" (click)="router.navigate([''])">Go Back</button>
+<button class="btn btn-lg btn-primary btn-block" style="margin-left: 10px" (click)="onSignin(email.value,password.value)">Sign in</button>
+  </div>
+</div>
+</body>
+</html>
+
+

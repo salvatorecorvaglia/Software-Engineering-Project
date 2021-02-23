@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <img src="assets/icon/favicon.png" width="50">
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="dark" (click)="firebaseService.logout()"><ion-icon slot="start" name="log-out-outline"></ion-icon> Logout</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+  </ion-refresher>
+
+  <div id="container">
+    <ion-grid>
+<ion-row>
+  <ion-col style="text-align: center">
+    <ion-button color="secondary" expand="block" (click)="router.navigateByUrl('/agentprofile')" fill="outline"> <ion-icon name="person-circle-outline" slot="start"></ion-icon>User Profile</ion-button>
+  </ion-col>
+</ion-row>
+    </ion-grid>
+
+
+    <ion-card *ngFor="let item of assigns | orderBy: -idAssign">
+      <ion-item lines="none">
+          <ion-icon *ngIf="item.intervention.type.name == 'Brawl'" name="shield-half-outline" slot="start"></ion-icon>
+          <ion-icon *ngIf="item.intervention.type.name == 'Flood'" name="rainy-outline" slot="start"></ion-icon>
+          <ion-icon *ngIf="item.intervention.type.name == 'Fire'" name="flame-outline" slot="start"></ion-icon>
+          <ion-icon *ngIf="item.intervention.type.name == 'Illegal Dump'" name="trash-bin-outline" slot="start"></ion-icon>
+          <ion-icon *ngIf="item.intervention.type.name == 'Car Crash'" name="car-outline" slot="start"></ion-icon>
+        <ion-label>
+          <p><strong>Type:</strong></p>
+          <p>{{item.intervention.type.name}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon name="pin" slot="start"></ion-icon>
+        <ion-label class="ion-text-wrap">
+        <p><strong>Address: </strong></p>
+        <p>{{item.intervention.address}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon name="alarm-outline" slot="start"></ion-icon>
+        <ion-label class="ion-text-wrap">
+        <p><strong>Confirmation Date:</strong></p>
+          <p>{{item.startValidate | date: 'medium'}}</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item lines="none" *ngIf="item.intervention.startDate == null"><ion-icon name="close-circle-outline" slot="start"></ion-icon><ion-label><p><strong>Status:</strong></p><p> Not Confirmed</p></ion-label></ion-item>
+      <ion-item lines="none" *ngIf="item.intervention.startDate != null"><ion-icon name="checkmark-circle-outline" slot="start"></ion-icon><ion-label><p><strong>Status:</strong></p><p> Confirmed</p></ion-label></ion-item>
+      <ion-item lines="none" *ngIf="item.intervention.firstReport == null"><ion-icon name="clipboard-outline" slot="start"></ion-icon><ion-label><p><strong>First Report:</strong></p><p> Not Compiled</p></ion-label></ion-item>
+      <ion-item lines="none" *ngIf="item.intervention.firstReport != null"><ion-icon name="reader-outline" slot="start"></ion-icon><ion-label><p><strong>First Report:</strong></p><p> Compiled</p></ion-label></ion-item>
+      <ion-item lines="none" *ngIf="item.intervention.firstReport == null">
+        <ion-button *ngIf="item.intervention.startDate == null" fill="outline" slot="start" color="success" (click)="openConfirmAlert(item.idAssign, item.intervention.idIntervention, item.intervention.address, item.intervention.lat, item.intervention.lon, item.intervention.type, item.manager, item.agent, item.intervention.count, $event)">Confirm</ion-button>
+        <ion-button *ngIf="item.confirm == 1 && item.intervention.firstReport == null" fill="outline" color="warning" slot="start"  (click)="openPhotoPage(item.intervention.idIntervention)"><ion-icon name="camera"></ion-icon>Add Photo</ion-button>
+        <ion-button *ngIf="item.confirm == 1 && item.intervention.firstReport == null" fill="outline" color="primary" slot="start" (click)="openFirstReportModal(item.intervention.idIntervention, item.idAssign, item.startValidate)"><ion-icon name="create" ></ion-icon>Report</ion-button>
+      </ion-item>
+    </ion-card>
+  </div>
+
+</ion-content>

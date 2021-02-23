@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+    <ion-buttons slot="end">
+  <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+<ion-content class="ion-padding">
+
+  <ion-item>
+    <ion-label position="floating">Email</ion-label>
+    <ion-input type="text" #email></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Password</ion-label>
+    <ion-input type="password" #password></ion-input>
+  </ion-item>
+
+  <ion-button color="danger" expand="block" (click)="onSignin(email.value,password.value) + dismissModal()">Login</ion-button>
+
+</ion-content>

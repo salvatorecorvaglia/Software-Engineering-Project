@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="assets/faviconwhite.png">
+
+  <title>Delete Interventions</title>
+
+</head>
+
+
+
+<body>
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+  <img style="height: 50px; margin-left: 30px" src="assets/logowhite.png" alt="myalert">
+</nav>
+
+<!-- Sidebar navigation -->
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item active">
+            <a class="nav-link" (click)="router.navigate(['dashboard_manager'])">
+              <i class="fas fa-user"></i>User Profile
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="router.navigate(['agents_list'])">
+              <i class="fas fa-address-book" ></i>
+              Agents Management
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="router.navigate(['types_list'])">
+              <i class="fas fa-bell"></i>
+              Alarms Management
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="router.navigate(['warnings_list'])">
+              <i class="fas fa-exclamation-circle"></i>Alerts By Citizens
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active">
+              <i class="fas fa-calendar-check"></i>Alerts Closed
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="firebaseService.logout()">
+              <i class="fas fa-sign-out-alt"></i>Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  </div>
+  <!-- Main content -->
+  <div class="col-md">
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 style="margin-left: 300px"><strong>Alarms Closed</strong></h1>
+      </div>
+      <!-- Show user data when logged in -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="media">
+            <div class="media-body">
+
+
+              <div class="row">
+                <div class="col-md-6" *ngFor="let item of interventions | orderBy: -idIntervention">
+              <div class="card" style="border-style: solid; text-align: center" >
+                <div class="card-body">
+                  <p><strong>End Date:</strong></p>
+                  {{item.endDate | date: 'medium'}}
+                  <p><strong>Type: </strong></p>
+                  <i class="fas fa-car-crash" *ngIf="item.type.name == 'Car Crash'"></i>
+                  <i class="fas fa-fire" *ngIf="item.type.name == 'Fire'"></i>
+                  <i class="fas fa-cloud-rain" *ngIf="item.type.name == 'Flood'"></i>
+                  <i class="far fa-angry" *ngIf="item.type.name == 'Brawl'"></i>
+                  <i class="fas fa-recycle" *ngIf="item.type.name == 'Illegal Dump'"></i>
+                  {{item.type.name}}
+                  <p><strong>Address: </strong></p>
+                  <p>{{item.address}}</p>
+                  <p><strong>First Report: </strong></p>
+                  <textarea cols="50" rows="2" style="border-radius: 10%; border-style: solid" disabled="true">{{item.firstReport}}</textarea>
+                  <p><strong>Final Report: </strong></p>
+                  <textarea cols="63" rows="3" style="border-radius: 10%; border-style: solid" disabled="true">{{item.lastReport}}</textarea>
+                </div>
+                <div class="card-footer">
+                  <button class="btn btn-outline-dark" (click)="router.navigate(['images_list'],{ state: {idIntervention: item.idIntervention} })"><i class="fas fa-images"></i>View Images</button>
+                </div>
+              </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+  </main>
+  </div>
+</div>
+
+</body>
+</html>

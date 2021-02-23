@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="assets/faviconwhite.png">
+
+  <title>Agents List</title>
+
+</head>
+
+
+
+<body>
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+  <img style="height: 50px; margin-left: 30px" src="assets/logowhite.png" alt="myalert">
+</nav>
+
+<!-- Sidebar navigation -->
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item active">
+            <a class="nav-link" (click)="router.navigate(['dashboard_manager'])">
+              <i class="fas fa-user"></i>User Profile
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active">
+              <i class="fas fa-address-book"></i>
+              Agents Management
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="router.navigate(['types_list'])">
+              <i class="fas fa-bell"></i>
+              Alarms Management
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="router.navigate(['warnings_list'])">
+              <i class="fas fa-exclamation-circle"></i>Alerts By Citizens
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="router.navigate(['delete_int'])">
+              <i class="fas fa-calendar-check"></i>Alerts Closed
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="firebaseService.logout()">
+              <i class="fas fa-sign-out-alt"></i>Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="col-md">
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 style="margin-left: 300px"><strong>Security Agents List</strong></h1> <button type="button" class="btn btn-outline-dark" slot="end" (click)="router.navigate(['add_agent'])">ADD AGENT</button>
+      </div>
+
+
+      <!-- Show user data when logged in -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="media">
+            <div class="media-body">
+
+              <div class="row">
+                <div class="col-md-4" *ngFor="let item of agents">
+              <div class="card text-center" style="width: 18rem; border-style: solid; margin-top: 10px">
+                    <div class="card-body">
+                      <h5 class="card-title">{{item.userDTO.name}} {{item.userDTO.surname}}</h5>
+                     <p class="card-text">Hire date: {{item.hireDate| date}}</p>
+                  </div>
+                </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+  </main>
+  </div>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

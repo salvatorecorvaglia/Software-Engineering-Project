@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="assets/faviconwhite.png">
+
+  <title>Types List</title>
+
+</head>
+
+
+
+<body>
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+  <img style="height: 50px; margin-left: 30px" src="assets/logowhite.png" alt="myalert">
+</nav>
+
+<!-- Sidebar navigation -->
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item active">
+            <a class="nav-link" (click)="router.navigate(['dashboard_manager'])">
+              <i class="fas fa-user"></i>User Profile
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="router.navigate(['agents_list'])">
+              <i class="fas fa-address-book" ></i>
+              Agents Management
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active">
+              <i class="fas fa-bell"></i>
+              Alarms Management
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="router.navigate(['warnings_list'])">
+              <i class="fas fa-exclamation-circle"></i>Alerts By Citizens
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="router.navigate(['delete_int'])">
+              <i class="fas fa-calendar-check"></i>Alerts Closed
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="firebaseService.logout()">
+              <i class="fas fa-sign-out-alt"></i>Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  </div>
+  <!-- Main content -->
+  <div class="col-md">
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 style="margin-left: 300px"><strong>Types of Alarms List:</strong></h1> <button class="btn btn-outline-dark" slot="end" (click)="open(addmodal, null)"><i class="fas fa-plus-circle"></i> ADD TYPE</button>
+      </div>
+      <!-- Show user data when logged in -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="media">
+            <div class="media-body">
+
+             <div class="row">
+               <div class="col-md-4" *ngFor="let item of types">
+              <div class="card" style="width: 18rem; border-style: solid; margin-top: 10px; text-align: center" >
+                <div class="card-body">
+                  <h5 class="card-title"><i class="fas fa-car-crash" *ngIf="item.name == 'Car Crash'"></i>
+                    <i class="fas fa-fire" *ngIf="item.name == 'Fire'"></i>
+                    <i class="fas fa-cloud-rain" *ngIf="item.name == 'Flood'"></i>
+                    <i class="far fa-angry" *ngIf="item.name == 'Brawl'"></i>
+                    <i class="fas fa-recycle" *ngIf="item.name == 'Illegal Dump'"></i>
+                    {{item.name}}</h5>
+                </div>
+                <div>
+                  <button class="btn btn-outline-dark" style="margin-bottom: 4px" (click)="open(editmodal, item.idType)" ><i class="fas fa-edit"></i> EDIT</button>
+                  <button class="btn btn-outline-danger" style="margin-left: 8px; margin-bottom: 4px" (click)="open(deletemodal, item.idType)"><i class="fas fa-trash"></i> DELETE</button>
+                </div>
+              </div>
+             </div>
+             </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </main>
+  </div>
+</div>
+
+<ng-template #addmodal let-modal>
+  <div class="modal-dialog-centered" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="border-style: solid; text-align: center">
+      <div class="modal-content" style="text-align: center">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Type of Alarm:</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #typeform = "ngForm">
+              <p><strong>Type:</strong></p>
+              <input type="text" class="form-control" style="border: #333333; border-style: solid" placeholder="Type.."
+                     name="nametype"
+                     [ngClass]="{'is-invalid': nametype.errors && nametype.touched}"
+                     #nametype="ngModel"
+                     [(ngModel)]="type.name"
+                     required
+                     minlength="2">
+            <div class="invalid-feedback">
+              Please insert a valid type
+            </div>
+            <div class="formGroup" style="text-align: center">
+            <button type="button" class="btn btn-dark" [disabled]="!typeform.form.valid" (click)="addTypeAlarm(nametype.value) + modal.dismiss()"><i class="fas fa-plus-circle"></i>ADD</button>
+            </div>
+        </form>
+        </div>
+    </div>
+
+  </div>
+</ng-template>
+
+<ng-template #editmodal let-modal>
+  <div class="modal-dialog-centered" id="example1ModalCenter" tabindex="-1" role="dialog" aria-labelledby="example1ModalCenterTitle" style="border-style: solid; text-align: center">
+      <div class="modal-content" style="text-align: center">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Type of Alarm:</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss()"></button>
+        </div>
+        <div class="modal-body">
+          <form #edittype = "ngForm">
+              <p><strong>Type:</strong></p>
+          <input type="text" class="form-control" style="border: #333333; border-style: solid" placeholder="Type.."
+                 name="nametype"
+                 [ngClass]="{'is-invalid': nametype.errors && nametype.touched}"
+                 [(ngModel)]="type.name"
+                 #nametype = "ngModel"
+                 required
+                 minlength="2">
+            <div class="invalid-feedback">
+              Please insert a valid type
+            </div>
+            <div class="formGroup" style="text-align: center">
+            <button type="button" class="btn btn-secondary" [disabled]="!edittype.form.valid" (click)="editTypeAlarm(nametype.value) + modal.dismiss()"><i class="fas fa-pencil-alt"></i>EDIT</button>
+            </div>
+          </form>
+          </div>
+        </div>
+  </div>
+</ng-template>
+
+<ng-template #deletemodal let-modal>
+  <div class="modal-dialog-centered" id="example2ModalCenter" tabindex="-1" role="dialog" aria-labelledby="example2ModalCenterTitle" style="border-style: solid; text-align: center">
+      <div class="modal-content" style="text-align: center">
+        <div class="modal-header">
+          <h4 class="modal-title">Delete Type of Alarm:</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+              <p>Are you sure to delete this Type of Alarm:</p>
+              <button type="button" class="btn btn-danger" (click)="deleteTypeAlarm() + modal.dismiss('Cross click')"><i class="fas fa-minus-circle"></i>Confirm</button>
+          </div>
+        </div>
+      </div>
+</ng-template>
+
+</body>
+</html>

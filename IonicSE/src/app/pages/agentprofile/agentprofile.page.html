@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profile</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="router.navigateByUrl('/homeagent')">Back</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item lines="none">
+    <ion-label>Name:</ion-label>
+    <ion-input type="text" [disabled]="disabled" #name1 placeholder="{{name}}"></ion-input>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-label>Surname:</ion-label>
+    <ion-input type="text" [disabled]="disabled" #surname1 placeholder="{{surname}}"></ion-input>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-label>Sex:</ion-label>
+    <ion-select [disabled]="disabled" #sex1 value="{{sex}}" placeholder="{{sex}}">
+      <ion-select-option value="M">M</ion-select-option>
+      <ion-select-option value="F">F</ion-select-option></ion-select>
+
+  </ion-item>
+  <ion-item lines="none">
+    <ion-label>Birthdate:</ion-label>
+    <ion-datetime value="{{birthDate | date: 'medium'}}" [disabled]="disabled" #birthdate1></ion-datetime>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-label>Address:</ion-label>
+    <ion-input type="text" [disabled]="disabled" #address1 placeholder="{{address}}"></ion-input>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-label>City:</ion-label>
+    <ion-input type="text" [disabled]="disabled" #city1 placeholder="{{city}}"></ion-input>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-label>State:</ion-label>
+    <ion-input type="text" [disabled]="disabled" #state1 placeholder="{{state}}"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-button [disabled]="disabled" (click)="updateAgent(name1.value, surname1.value, sex1.value, birthdate1.value, address1.value, city1.value, state1.value )">UPDATE</ion-button>
+    <ion-button [hidden]="hidden" (click)="modify()">MODIFY</ion-button>
+  </ion-item>
+</ion-content>

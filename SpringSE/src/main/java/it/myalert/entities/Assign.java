@@ -1,0 +1,266 @@
+package it.myalert.entities;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Version;
+
+@Entity(name="assign")
+public class Assign implements Serializable {
+
+    /** Primary key. */
+    protected static final String PK = "idAssign";
+
+
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(unique=true, nullable=false, precision=10)
+    private Integer idAssign;
+    @Column(name="Confirm", nullable=false, precision=3)
+    private Boolean confirm;
+    @Column(name="Concluded", nullable=false, precision=3)
+    private Boolean concluded;
+    @Column(name="StartValidate")
+    private Timestamp startValidate;
+    @Column(name="EndValidate")
+    private Timestamp endValidate;
+    @ManyToOne(optional=false)
+    @JoinColumn(name="idAgent", nullable=false)
+    private Agent agent;
+    @ManyToOne(optional=false)
+    @JoinColumn(name="idIntervention", nullable=false)
+    private Intervention intervention;
+    @ManyToOne(optional=false)
+    @JoinColumn(name="idManager", nullable=false)
+    private Manager manager;
+
+    /** Default constructor. */
+    public Assign() {
+        super();
+    }
+
+    /**
+     * Access method for idAssign.
+     *
+     * @return the current value of idAssign
+     */
+    public Integer getIdAssign() {
+        return idAssign;
+    }
+
+    /**
+     * Setter method for idAssign.
+     *
+     * @param aIdAssign the new value for idAssign
+     */
+    public void setIdAssign(Integer aIdAssign) {
+        idAssign = aIdAssign;
+    }
+
+    /**
+     * Access method for confirm.
+     *
+     * @return the current value of confirm
+     */
+    public Boolean getConfirm() {
+        return confirm;
+    }
+
+    /**
+     * Setter method for confirm.
+     *
+     * @param aConfirm the new value for confirm
+     */
+    public void setConfirm(Boolean aConfirm) {
+        confirm = aConfirm;
+    }
+
+    /**
+     * Access method for concluded.
+     *
+     * @return the current value of concluded
+     */
+    public Boolean getConcluded() {
+        return concluded;
+    }
+
+    /**
+     * Setter method for concluded.
+     *
+     * @param aConcluded the new value for concluded
+     */
+    public void setConcluded(Boolean aConcluded) {
+        concluded = aConcluded;
+    }
+
+    /**
+     * Access method for startValidate.
+     *
+     * @return the current value of startValidate
+     */
+    public Timestamp getStartValidate() {
+        return startValidate;
+    }
+
+    /**
+     * Setter method for startValidate.
+     *
+     * @param aStartValidate the new value for startValidate
+     */
+    public void setStartValidate(Timestamp aStartValidate) {
+        startValidate = aStartValidate;
+    }
+
+    /**
+     * Access method for endValidate.
+     *
+     * @return the current value of endValidate
+     */
+    public Timestamp getEndValidate() {
+        return endValidate;
+    }
+
+    /**
+     * Setter method for endValidate.
+     *
+     * @param aEndValidate the new value for endValidate
+     */
+    public void setEndValidate(Timestamp aEndValidate) {
+        endValidate = aEndValidate;
+    }
+
+    /**
+     * Access method for agent.
+     *
+     * @return the current value of agent
+     */
+    public Agent getAgent() {
+        return agent;
+    }
+
+    /**
+     * Setter method for agent.
+     *
+     * @param aAgent the new value for agent
+     */
+    public void setAgent(Agent aAgent) {
+        agent = aAgent;
+    }
+
+    /**
+     * Access method for intervention.
+     *
+     * @return the current value of intervention
+     */
+    public Intervention getIntervention() {
+        return intervention;
+    }
+
+    /**
+     * Setter method for intervention.
+     *
+     * @param aIntervention the new value for intervention
+     */
+    public void setIntervention(Intervention aIntervention) {
+        intervention = aIntervention;
+    }
+
+    /**
+     * Access method for manager.
+     *
+     * @return the current value of manager
+     */
+    public Manager getManager() {
+        return manager;
+    }
+
+    /**
+     * Setter method for manager.
+     *
+     * @param aManager the new value for manager
+     */
+    public void setManager(Manager aManager) {
+        manager = aManager;
+    }
+
+    /**
+     * Compares the key for this instance with another Assign.
+     *
+     * @param other The object to compare to
+     * @return True if other object is instance of class Assign and the key objects are equal
+     */
+    private boolean equalKeys(Object other) {
+        if (this==other) {
+            return true;
+        }
+        if (!(other instanceof Assign)) {
+            return false;
+        }
+        Assign that = (Assign) other;
+        if (this.getIdAssign() != that.getIdAssign()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Compares this instance with another Assign.
+     *
+     * @param other The object to compare to
+     * @return True if the objects are the same
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Assign)) return false;
+        return this.equalKeys(other) && ((Assign)other).equalKeys(this);
+    }
+
+    /**
+     * Returns a hash code for this instance.
+     *
+     * @return Hash code
+     */
+    @Override
+    public int hashCode() {
+        int i;
+        int result = 17;
+        i = getIdAssign();
+        result = 37*result + i;
+        return result;
+    }
+
+    /**
+     * Returns a debug-friendly String representation of this instance.
+     *
+     * @return String representation of this instance
+     */
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer("[Assign |");
+        sb.append(" idAssign=").append(getIdAssign());
+        sb.append("]");
+        return sb.toString();
+    }
+
+    /**
+     * Return all elements of the primary key.
+     *
+     * @return Map of key names to values
+     */
+    public Map<String, Object> getPrimaryKey() {
+        Map<String, Object> ret = new LinkedHashMap<String, Object>(6);
+        ret.put("idAssign", Integer.valueOf(getIdAssign()));
+        return ret;
+    }
+
+}

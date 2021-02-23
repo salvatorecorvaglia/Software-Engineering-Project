@@ -1,0 +1,67 @@
+plugins {
+	id 'org.springframework.boot' version '2.2.6.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+	id 'jacoco'
+}
+
+group = 'it.unisalento'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled true
+        csv.enabled true
+    }
+}
+
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+	
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'com.google.firebase:firebase-admin:7.0.1'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'mysql:mysql-connector-java'
+	
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	
+	compileOnly('org.projectlombok:lombok')
+	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+	testImplementation'org.mockito:mockito-junit-jupiter:2.23.0'
+	testCompile group: 'org.springframework.security', name: 'spring-security-test', version: '5.1.6.RELEASE'
+	compile group: 'javax.jws', name: 'javax.jws-api', version: '1.1'
+	compile group: 'org.glassfish.corba', name: 'glassfish-corba-omgapi', version: '4.2.3'
+}
+
+test {
+	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+}
+
+jacocoTestReport{
+  group = "build"
+  reports {
+    xml.enabled false
+    csv.enabled false
+    html.destination file("${buildDir}/reports/jacoco")
+  }
+}

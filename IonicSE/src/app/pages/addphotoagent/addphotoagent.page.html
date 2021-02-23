@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Photo</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="router.navigateByUrl('/homeagent')">Done</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let item of images;" >
+      <ion-thumbnail slot="start" *ngIf="item.url">
+        <img [src]="item.url" alt="">
+      </ion-thumbnail>
+      <ion-button (click)="openPhoto(item.url)">View Image</ion-button>
+      <ion-button slot="end" fill="clear" color="danger" (click)="remove(item.idImage, item.idFire)">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle style="text-align: center">Add New Image</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-button type="file" id="takephoto" (click)="takePhoto()" ><ion-icon name="camera-outline"></ion-icon>Take Photo</ion-button>
+        <ion-input type="file" id="file" class="form-control-file" name="file" style="margin-left: 20px" (change)="chooseFile($event)"></ion-input>
+      </ion-item>
+      <ion-button type="submit" style="margin-left: 95px" (click)="addTodo()"><ion-icon name="cloud-upload-outline"></ion-icon>Upload</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
